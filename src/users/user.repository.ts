@@ -1,11 +1,10 @@
 import { Repository, FindOneOptions, DeleteResult } from "typeorm";
-import { User } from "../Entitys/user.entity";
+import { User } from "../entitys/user.entity";
 import { IUserRepository } from "./user.interface";
 
 
 
 export class UserRepository extends Repository<User> implements IUserRepository {
-
     public async GetUser(id: number): Promise<User | null> {
         const findOneOptions: FindOneOptions<User> = {
             where: { id: id },
@@ -62,6 +61,5 @@ export class UserRepository extends Repository<User> implements IUserRepository 
     public async DeleteUser(id: number): Promise<DeleteResult> {
         return this.delete(id);
     }
-
 }
 

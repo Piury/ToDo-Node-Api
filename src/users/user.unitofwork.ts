@@ -1,5 +1,5 @@
 import { json } from "stream/consumers";
-import { User } from "../Entitys/user.entity";
+import { User } from "../entitys/user.entity";
 import { AppDataSource } from "../data-source";
 import { UserRepository } from "./user.repository";
 
@@ -18,7 +18,6 @@ export class UserUnitOfWork {
                 return new User();
             return user;
         });
-
     }
 
     async find(id: number): Promise<User> {
@@ -43,6 +42,9 @@ export class UserUnitOfWork {
                 return [new User()];
             return user;
         });
+    }
+    async delete(id: number): Promise<void> {
+        await this.userRepository.DeleteUser(id);
     }
     private async initializeConnection(): Promise<void> {
         try {
