@@ -1,5 +1,5 @@
 import { Repository, DeleteResult } from "typeorm";
-import { User } from "../entitys/user.entity";
+import { User } from "../../entitys/user.entity";
 
 export interface IUserRepository extends Repository<User> {
     GetUser(id: number): Promise<User | null>;

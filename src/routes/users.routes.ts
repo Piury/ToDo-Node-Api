@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { UserUnitOfWork } from "../users/user.unitofwork";
+import { UserUnitOfWork } from "../data-access/users/user.unitofwork";
 import { User } from "../entitys/user.entity";
 import * as bcrypt from 'bcrypt';
 

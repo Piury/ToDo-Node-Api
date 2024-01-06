@@ -1,5 +1,5 @@
 import { Repository, FindOneOptions, DeleteResult } from "typeorm";
-import { User } from "../entitys/user.entity";
+import { User } from "../../entitys/user.entity";
 import { IUserRepository } from "./user.interface";
 
 

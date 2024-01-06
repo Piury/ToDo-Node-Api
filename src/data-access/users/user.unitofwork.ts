@@ -1,6 +1,6 @@
 import { json } from "stream/consumers";
-import { User } from "../entitys/user.entity";
-import { AppDataSource } from "../data-source";
+import { User } from "../../entitys/user.entity";
+import { AppDataSource } from "../../data-source";
 import { UserRepository } from "./user.repository";
 
 export class UserUnitOfWork {
