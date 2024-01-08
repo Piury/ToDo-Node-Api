@@ -5,7 +5,7 @@ import { IUserRepository } from "./user.interface";
 
 
 export class UserRepository extends Repository<User> implements IUserRepository {
-    public async GetUser(id: number): Promise<User | null> {
+    public async GetUser(id: string): Promise<User | null> {
         const findOneOptions: FindOneOptions<User> = {
             where: { id: id },
         };
@@ -58,7 +58,7 @@ export class UserRepository extends Repository<User> implements IUserRepository 
         }
         return _user;
     }
-    public async DeleteUser(id: number): Promise<DeleteResult> {
+    public async DeleteUser(id: string): Promise<DeleteResult> {
         return this.delete(id);
     }
 }

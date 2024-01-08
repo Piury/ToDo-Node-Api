@@ -20,6 +20,56 @@ const doc = {
                 scheme: '',
             }
         }
+    },
+    definitions: {
+        User: {
+            id: "integer",
+            name: "string",
+            email: "string",
+            password: "string",
+            todoLists: [
+                { $ref: "#/definitions/TodoList" }
+            ]
+        },
+        TodoList: {
+            id: "integer",
+            name: "string",
+            description: "string",
+            project: {
+                $ref: "#/definitions/Project"
+            },
+            user: {
+                $ref: "#/definitions/User"
+            },
+            tasks: [
+                { $ref: "#/definitions/Task" }
+            ]
+        },
+        Project: {
+            id: "integer",
+            name: "string",
+            description: "string",
+            startDate: { type: "string", format: "date-time" },
+            endDate: { type: "string", format: "date-time" },
+            todoLists: [
+                { $ref: "#/definitions/TodoList" }
+            ]
+        },
+        Task: {
+            id: "integer",
+            name: "string",
+            description: "string",
+            dueDate: { type: "string", format: "date-time" },
+            priority: "integer",
+            startTime: { type: "string", format: "date-time" },
+            endTime: { type: "string", format: "date-time" },
+            duration: "integer",
+            completed: "boolean",
+            completedOn: { type: "string", format: "date-time" }
+        },
+        todoList: {
+            $ref: "#/definitions/TodoList"
+        }
     }
 };
 

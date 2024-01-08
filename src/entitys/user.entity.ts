@@ -1,11 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { TodoList } from "./todoList.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity()
+@Entity({ name: 'user', schema: 'public' })
 export class User {
-
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column()
     name: string;
@@ -15,7 +13,4 @@ export class User {
 
     @Column()
     password: string;
-
-    @OneToMany(type => TodoList, todoList => todoList.user)
-    todoLists: TodoList[];
 }

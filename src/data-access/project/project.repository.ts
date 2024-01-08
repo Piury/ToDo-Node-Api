@@ -2,10 +2,8 @@ import { Repository, FindOneOptions, DeleteResult } from "typeorm";
 import { Project } from "../../entitys/project.entity";
 import { IProjectRepository } from "./project.interface";
 
-
-
 export class ProjectRepository extends Repository<Project> implements IProjectRepository {
-    public async GetProject(id: number): Promise<Project | null> {
+    public async GetProject(id: string): Promise<Project | null> {
         const findOneOptions: FindOneOptions<Project> = {
             where: { id: id },
         };
@@ -25,6 +23,18 @@ export class ProjectRepository extends Repository<Project> implements IProjectRe
         return _Project;
     }
     public async SaveProject(Project: Project): Promise<Project | null> {
+
+        // Check that the startDate field is not null
+        if (!Project.startDate) {
+            throw new Error("The startDate field is required");
+        }
+
+
+        // Check that the startDate endDate is not null
+        if (!Project.endDate) {
+            throw new Error("The endDate field is required");
+        }
+
         this.save(Project);
         // Verifica si guardo
         const findOneOptions: FindOneOptions<Project> = {
@@ -36,7 +46,7 @@ export class ProjectRepository extends Repository<Project> implements IProjectRe
         }
         return _Project;
     }
-    public async DeleteProject(id: number): Promise<DeleteResult> {
+    public async DeleteProject(id: string): Promise<DeleteResult> {
         return this.delete(id);
     }
 }

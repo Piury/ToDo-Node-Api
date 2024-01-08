@@ -18,7 +18,20 @@ async function main() {
     await initializeConnection();
 
     UserRouter.get("/users/:id", async (req, res) => {
-        const id = parseInt(req.params.id);
+        // #region Swagger
+        /*
+            #swagger.tags = ['users']
+            #swagger.summary = Gets a user by ID
+            #swagger.parameters = [{ in: "path", name: "id", type: "string", required: true }]
+            #swagger.responses = {
+            "200": { description: "User found", schema: { $ref: "#/definitions/User" } },
+            "404": { description: "User not found" },
+            "500": { description: "Internal server error" }}
+        */
+
+        // #endregion
+
+        const id = req.params.id;
         try {
             const user = await userUnitOfWork.find(id);
             if (!user) {
@@ -32,6 +45,23 @@ async function main() {
     });
 
     UserRouter.get("/users", async (req, res) => {
+        // #region Swagger
+        /*
+        #swagger.tags = ['users']
+        #swagger.summary = Gets all users
+        #swagger.responses = {
+          "200": {
+            description: "Users found",
+            schema: {
+              type: "array",
+              items: { $ref: "#/definitions/User" }
+            }
+          },
+          "404": { description: "Users not found" },
+          "500": { description: "Internal server error" }
+        }
+        */
+        // #endregion
         try {
             const user = await userUnitOfWork.findAll();
             if (!user) {
@@ -45,6 +75,23 @@ async function main() {
     });
 
     UserRouter.post("/users", async (req, res) => {
+        // #region Swagger
+        /*
+        #swagger.tags = ['users']
+        #swagger.summary = Creates a new user
+        #swagger.consumes = ['application/json']
+        #swagger.produces = ['application/json']
+        #swagger.parameters = [{ in: "body", name: "body", description: "User object", schema: { $ref: "#/definitions/User" } }]
+        #swagger.responses = {
+          "201": {
+            description: "User created",
+            schema: { $ref: "#/definitions/User" }
+          },
+          "400": { description: "Bad request" },
+          "500": { description: "Internal server error" }
+        }
+        */
+        // #endregion
         try {
 
             const { name, email, password } = req.body;
@@ -72,8 +119,29 @@ async function main() {
     });
 
     UserRouter.post("/users/:id", async (req, res) => {
+        // #region Swagger
+        /*
+        #swagger.tags = ['users']
+        #swagger.summary = Updates an existing user
+        #swagger.consumes = ['application/json']
+        #swagger.produces = ['application/json']
+        #swagger.parameters = [
+          { in: "path", name: "id", type: "string", required: true, description: "User ID" },
+          { in: "body", name: "body", description: "User object", schema: { $ref: "#/definitions/User" } }
+        ]
+        #swagger.responses = {
+          "200": {
+            description: "User updated",
+            schema: { $ref: "#/definitions/User" }
+          },
+          "400": { description: "Bad request" },
+          "404": { description: "User not found" },
+          "500": { description: "Internal server error" }
+        }
+        */
+        // #endregion
         try {
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
 
             const { name, email, password } = req.body;
 
@@ -116,8 +184,20 @@ async function main() {
     });
 
     UserRouter.delete("/users/:id", async (req, res) => {
+        // #region Swagger
+        /*
+        #swagger.tags = ['users']
+        #swagger.summary = Deletes an existing user
+        #swagger.parameters = [{ in: "path", name: "id", type: "string", required: true, description: "User ID" }]
+        #swagger.responses = {
+          "204": { description: "User deleted" },
+          "404": { description: "User not found" },
+          "500": { description: "Internal server error" }
+        }
+        */
+        // #endregion
         try {
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
 
             await userUnitOfWork.delete(id);
 
@@ -129,6 +209,7 @@ async function main() {
     });
 
 }
+
 main();
 
 process.on("SIGINT", () => {

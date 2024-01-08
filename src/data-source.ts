@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entitys/user.entity";
 import { Task } from "./entitys/task.entity";
-import { TodoList } from "./entitys/todoList.entity";
+// import { TodoList } from "./entitys/todoList.entity";
 import { Project } from "./entitys/project.entity";
 
 
@@ -16,5 +16,6 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: true,
     logger: "file",
-    entities: [User, Task, TodoList, Project],    // entities: ["./entitys/*.js"],
+    entities: [User, Task, Project /*, TodoList*/],    // entities: ["./entitys/*.js"],
+    migrationsRun: false,
 });

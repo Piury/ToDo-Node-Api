@@ -20,7 +20,7 @@ export class UserUnitOfWork {
         });
     }
 
-    async find(id: number): Promise<User> {
+    async find(id: string): Promise<User> {
         return await this.userRepository.GetUser(id).then((user) => {
             if (!user)
                 return new User();
@@ -43,14 +43,16 @@ export class UserUnitOfWork {
             return user;
         });
     }
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.userRepository.DeleteUser(id);
     }
     private async initializeConnection(): Promise<void> {
         try {
-            const connection = await AppDataSource.initialize();
-            const entityManager = connection.manager;
-            this.userRepository = await new UserRepository(User, entityManager);
+            if (!AppDataSource.isInitialized) {
+                const connection = await AppDataSource.initialize();
+                const entityManager = connection.manager;
+                this.userRepository = await new UserRepository(User, entityManager);
+            }
         } catch (error) {
             console.error("Error during connection initialization:", error);
         }

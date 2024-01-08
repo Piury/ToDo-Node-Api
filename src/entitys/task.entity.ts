@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { TodoList } from "./todoList.entity";
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Project } from "./project.entity";
+// import { TodoList } from "./todoList.entity";
 
-@Entity()
+@Entity({ name: 'tasks', schema: 'public' })
 export class Task {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Column()
@@ -33,6 +34,8 @@ export class Task {
   @Column()
   completedOn: Date;
 
-  @ManyToOne(type => TodoList, todoList => todoList.tasks)
-  todoList: TodoList;
+  @ManyToOne(type => Project, project => project.task)
+  project: Project;
+  // @ManyToOne(type => TodoList, todoList => todoList.tasks)
+  // todoList: TodoList;
 }

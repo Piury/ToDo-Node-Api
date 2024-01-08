@@ -19,7 +19,7 @@ export class ProjectUnitOfWork {
         });
     }
 
-    async find(id: number): Promise<Project> {
+    async find(id: string): Promise<Project> {
         return await this.projectRepository.GetProject(id).then((project) => {
             if (!project)
                 return new Project();
@@ -35,15 +35,17 @@ export class ProjectUnitOfWork {
         });
     }
 
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.projectRepository.DeleteProject(id);
     }
 
     private async initializeConnection(): Promise<void> {
         try {
-            const connection = await AppDataSource.initialize();
-            const entityManager = connection.manager;
-            this.projectRepository = await new ProjectRepository(Project, entityManager);
+            if (!AppDataSource.isInitialized) {
+                const connection = await AppDataSource.initialize();
+                const entityManager = connection.manager;
+                this.projectRepository = await new ProjectRepository(Project, entityManager);
+            }
         } catch (error) {
             console.error("Error during connection initialization:", error);
         }
