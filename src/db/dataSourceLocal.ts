@@ -8,9 +8,9 @@ let connectionOptions: DataSourceOptions = {
     type: "mysql",
     host: "localhost",
     port: 3306,
-    username: "todoappuser",
-    password: "6501937F16",
-    database: "ToDoApp",
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     synchronize: false,
     logging: true,
     logger: "file",
@@ -21,19 +21,3 @@ let connectionOptions: DataSourceOptions = {
 export default new DataSource({
     ...connectionOptions,
 });
-
-
-
-// export const AppDataSource = new DataSource({
-//     type: "mysql",//"postgres", "mssql","oracledb","pg"
-//     host: "localhost",
-//     port: 3306,
-//     username: "todoappuser",
-//     password: "6501937F16",
-//     database: "ToDoApp",
-//     synchronize: true,
-
-//     entities: [User, Task, Project /*, TodoList*/],    // entities: ["./entitys/*.js"],
-//     migrationsRun: false,
-
-// });
