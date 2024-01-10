@@ -1,10 +1,10 @@
 import { Project } from "../../entitys/project.entity";
-import { AppDataSource } from "../../data-source";
+import * as appDataSource from "../../db/data-source";
 import { ProjectRepository } from "./project.repository";
 
 export class ProjectUnitOfWork {
     projectRepository: ProjectRepository;
-
+    AppDataSource = appDataSource.default;
     public static async create(): Promise<ProjectUnitOfWork> {
         const instance = new ProjectUnitOfWork();
         await instance.initializeConnection();
@@ -41,8 +41,9 @@ export class ProjectUnitOfWork {
 
     private async initializeConnection(): Promise<void> {
         try {
-            if (!AppDataSource.isInitialized) {
-                const connection = await AppDataSource.initialize();
+
+            if (!this.AppDataSource.isInitialized) {
+                const connection = await this.AppDataSource.initialize();
                 const entityManager = connection.manager;
                 this.projectRepository = await new ProjectRepository(Project, entityManager);
             }
@@ -51,6 +52,6 @@ export class ProjectUnitOfWork {
         }
     }
     dispose(): void {
-        AppDataSource.destroy();
+        this.AppDataSource.destroy();
     }
 }

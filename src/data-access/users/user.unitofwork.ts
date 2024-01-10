@@ -1,10 +1,11 @@
 import { json } from "stream/consumers";
 import { User } from "../../entitys/user.entity";
-import { AppDataSource } from "../../data-source";
+import * as appDataSource from "../../db/data-source";
 import { UserRepository } from "./user.repository";
 
 export class UserUnitOfWork {
     userRepository: UserRepository;
+    AppDataSource = appDataSource.default;
 
     public static async create(): Promise<UserUnitOfWork> {
         const instance = new UserUnitOfWork();
@@ -48,8 +49,8 @@ export class UserUnitOfWork {
     }
     private async initializeConnection(): Promise<void> {
         try {
-            if (!AppDataSource.isInitialized) {
-                const connection = await AppDataSource.initialize();
+            if (!this.AppDataSource.isInitialized) {
+                const connection = await this.AppDataSource.initialize();
                 const entityManager = connection.manager;
                 this.userRepository = await new UserRepository(User, entityManager);
             }
@@ -58,6 +59,6 @@ export class UserUnitOfWork {
         }
     }
     dispose(): void {
-        AppDataSource.destroy();
+        this.AppDataSource.destroy();
     }
 }

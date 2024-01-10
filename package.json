@@ -5,11 +5,13 @@
   "main": "dist/app.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/app.js",
-    "dev": "ts-node src/swagger.ts && npx tsc && nodemon app.ts",
+    "start": "nodemon --exec ts-node dist/app.js",
+    "dev": "npm run swagger && npm run build && npm run start",
     "swagger": "ts-node src/swagger.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "typeorm": "typeorm schema:sync"
+    "typeorm:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/db/dataSourceLocal.ts ",
+    "typeorm:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/db/dataSourceLocal.ts",
+    "typeorm:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop -d src/db/dataSourceLocal.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +27,7 @@
     "nodemon": "^3.0.2",
     "reflect-metadata": "^0.2.1",
     "swagger-ui-express": "^5.0.0",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.19"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",

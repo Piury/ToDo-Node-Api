@@ -1,6 +1,5 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Project } from "./project.entity";
-// import { TodoList } from "./todoList.entity";
 
 @Entity({ name: 'tasks', schema: 'public' })
 export class Task {
