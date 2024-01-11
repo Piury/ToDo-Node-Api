@@ -1,8 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Task } from "./task.entity";
+import { ModelBaseEntity } from "../ModelBase/ModelBaseEntity";
 
-@Entity({ name: 'project', schema: 'public' })
-export class Project {
+@Entity({ name: 'Project', schema: 'public' })
+export class Project extends ModelBaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 

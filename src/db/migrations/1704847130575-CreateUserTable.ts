@@ -5,11 +5,12 @@ import {
     TableIndex,
 } from "typeorm";
 
+const nameTable = "User";
 export class CreateUserTable1654554754825 implements MigrationInterface {
     async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "user",
+                name: nameTable,
                 columns: [
                     {
                         name: "id",
@@ -49,7 +50,7 @@ export class CreateUserTable1654554754825 implements MigrationInterface {
         );
 
         await queryRunner.createIndex(
-            "user",
+            nameTable,
             new TableIndex({
                 name: "IDX_USER_EMAIL",
                 columnNames: ["email"],
@@ -57,12 +58,12 @@ export class CreateUserTable1654554754825 implements MigrationInterface {
         );
         // Insertar datos iniciales
         await queryRunner.query(
-            "INSERT INTO user (id, name, email, password, updated_by) VALUES (UUID(), 'Admin', 'admin@todoapp.com', 'root', 'root')",
+            `INSERT INTO ${nameTable} (id, name, email, password, updated_by) VALUES (UUID(), 'Admin', 'admin@todoapp.com', 'root', 'root')`,
         );
     }
 
     async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropIndex("user", "IDX_USER_EMAIL");
-        await queryRunner.dropTable("user");
+        await queryRunner.dropIndex(nameTable, "IDX_USER_EMAIL");
+        await queryRunner.dropTable(nameTable);
     }
 }
