@@ -1,12 +1,8 @@
-import {
-    MigrationInterface,
-    QueryRunner,
-    Table,
-    TableIndex,
-} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-const nameTable = "User";
-export class CreateUserTable1654554754825 implements MigrationInterface {
+const nameTable = "Project";
+
+export class CreateProjectTable1654554754825 implements MigrationInterface {
     async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -23,12 +19,16 @@ export class CreateUserTable1654554754825 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
-                        name: "email",
+                        name: "description",
                         type: "varchar",
                     },
                     {
-                        name: "password",
-                        type: "varchar",
+                        name: "startDate",
+                        type: "timestamp",
+                    },
+                    {
+                        name: "endDate",
+                        type: "timestamp",
                     },
                     {
                         name: "created_at",
@@ -49,34 +49,32 @@ export class CreateUserTable1654554754825 implements MigrationInterface {
             true, // If schema: 'public' is needed, add it as a third argument here
         );
 
-        await queryRunner.createIndex(
-            nameTable,
-            new TableIndex({
-                name: "IDX_USER_EMAIL",
-                columnNames: ["email"],
-            }),
-        );
-
         // Insertar datos iniciales
-        const insertQuery = `
-        INSERT INTO ${nameTable} (
-            id, 
-            name, 
-            email, 
-            password, 
-            updated_by) 
-        VALUES (
-            UUID(), 
-            'Admin', 
-            'admin@todoapp.com', 
-            'root', 
-            'root')`;
+        // const now = Date.now();
+        // const date = new Date(now).toISOString();
+        // const insertQuery = `
+        // INSERT INTO ${nameTable} (
+        //     id, 
+        //     name, 
+        //     description, 
+        //     startDate, 
+        //     endDate) 
+        // VALUES (
+        //     UUID(), 
+        //     ?, 
+        //     ?, 
+        //     CONVERT_TZ(?, 'UTC', @@session.time_zone),
+        //     CONVERT_TZ(?, 'UTC', @@session.time_zone))`;
 
-        await queryRunner.query(insertQuery);
+        // await queryRunner.query(insertQuery, [
+        //     'Proyecto 1',
+        //     'Descripción del proyecto 1',
+        //     date,
+        //     date
+        // ]);
     }
 
     async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropIndex(nameTable, "IDX_USER_EMAIL");
         await queryRunner.dropTable(nameTable);
     }
 }

@@ -5,7 +5,7 @@ import { ModelBaseEntity } from "../ModelBase/ModelBaseEntity";
 @Entity({ name: "Task", schema: 'public' })
 export class Task extends ModelBaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column()
   name: string;
