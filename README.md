@@ -9,7 +9,7 @@ Installation
 To install ToDo-Node-Api, follow these steps:
 
 Clone the GitHub repository:
-git clone [https://github.com/](https://github.com/Piury/ToDo-Node-Api.git)/ToDo-Node-Api.git
+git clone [https://github.com/Piury/ToDo-Node-Api.git](https://github.com/Piury/ToDo-Node-Api.git)/ToDo-Node-Api.git
 Navigate to the project directory:
 cd todoapp
 Install the dependencies:
