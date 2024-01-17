@@ -9,7 +9,7 @@ Installation
 To install ToDoApp, follow these steps:
 
 Clone the GitHub repository:
-git clone [https://github.com/Piury](https://github.com/Piury)/todoapp.git
+git clone [https://github.com/](https://github.com/Piury)/todoapp.git
 Navigate to the project directory:
 cd todoapp
 Install the dependencies:
