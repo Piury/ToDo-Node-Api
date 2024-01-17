@@ -1,15 +1,15 @@
-ToDoApp
+#ToDo-Node-Api
 
 Description
-ToDoApp is a simple and flexible task management application built with TypeScript, Node.js, Express, and TypeORM.
+ToDo-Node-Api is a simple and flexible task management application built with TypeScript, Node.js, Express, and TypeORM.
 
 The application allows users to create, retrieve, update, and delete tasks. Tasks can be organized into projects, making it easy to track related tasks.
 
 Installation
-To install ToDoApp, follow these steps:
+To install ToDo-Node-Api, follow these steps:
 
 Clone the GitHub repository:
-git clone [https://github.com/](https://github.com/Piury/todoapp.git)/todoapp.git
+git clone [https://github.com/](https://github.com/Piury/ToDo-Node-Api.git)/ToDo-Node-Api.git
 Navigate to the project directory:
 cd todoapp
 Install the dependencies:
